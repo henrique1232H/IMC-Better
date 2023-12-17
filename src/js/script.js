@@ -6,6 +6,8 @@ const takeQuerySelector = () => {
     const firstInput = form.querySelector(".weight");
     const secondInput = form.querySelector(".height");
 
+    const inputButton = form.querySelector("button")
+
 
     const h2 = screenError.querySelector("h2");
     const h1 = modal.querySelector("h1");
@@ -141,7 +143,16 @@ const closeModal = () => {
 
         resetInput();
     })
+
+    addEventListener("keydown", (e) => {
+        if(e.key === "Backspace") {
+            takeQuery.modal.classList.add("hide");
+
+            resetInput();
+        }
+    })
 }
+
 
 const result = () => {
     
@@ -149,7 +160,6 @@ const result = () => {
     takeQuery.form.addEventListener("submit", (e) => {
         e.preventDefault()
         const takeNumber = checkIfInputsFormIsNumber();
-        console.log(takeNumber[0], takeNumber[1])
 
         const resultCalc = Math.round(takeNumber[0] / (takeNumber[1] * takeNumber[1]));
 
@@ -158,10 +168,9 @@ const result = () => {
 
 
         takeQuery.modal.classList.remove("hide");
-
-
         
         
+ 
     })
 }
 
