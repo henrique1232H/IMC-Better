@@ -11,8 +11,10 @@
 }
 
 body {
-    background-color: #040924;
+    background: linear-gradient(42deg, #040924 20%, #0e1c70 100%);
+    background-size: 200% 200%;
     font-family: 'Roboto', sans-serif;
+    animation: background 4s alternate forwards infinite;
 }
 
 main {
@@ -163,7 +165,7 @@ button {
 }
 
 .borderRed {
-    border: 1px solid red;
+    border: 2px solid red;
 }
 
 .modal h1 {
@@ -179,6 +181,20 @@ button {
 
 .hide {
     display: none;
+}
+
+@keyframes background {
+    0% {
+        background-position: 0% 100%;
+    }
+
+    50% {
+        background-position: 50% 50%;
+    }
+
+    100% {
+        background-position: 100% 0%;
+    }
 }
 
 @keyframes opacity {
