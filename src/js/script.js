@@ -5,19 +5,19 @@ const takeQuerySelector = () => {
 
     const firstInput = form.querySelector(".weight");
     const secondInput = form.querySelector(".height");
-    const buttonForm = form.querySelector("button");
+
 
     const h2 = screenError.querySelector("h2");
-    const h1 = modal.querySelector("h1")
+    const h1 = modal.querySelector("h1");
 
-    const buttonExit = modal.querySelector("button")
+    const buttonExit = modal.querySelector("button");
 
 
     return {
         screenError,
         modal,
         form,
-        inputsForm: [firstInput, secondInput, buttonForm],
+        inputsForm: [firstInput, secondInput],
         buttonExit,
         h2,
         h1
@@ -27,34 +27,27 @@ const takeQuerySelector = () => {
 
 const messagesForScreenError = () => {
     return [
-        "Digite somente números",
-        "Nenhum dos campos estão preenchidos",
-        "O peso não está preenchido",
-        "Altura não está preenchido"
+        "Digite somente números ou veja se tem algo a mais.",
+        "Nenhum dos campos estão preenchidos.",
+        "O peso não está preenchido.",
+        "Altura não está preenchido.",
+        "Reveja o peso."
     ]
 }
-
-const takeMessages = messagesForScreenError();
 
 
 const takeQuery = takeQuerySelector();
 
 
-const removeBorderRed = () => {
-    takeQuery.inputsForm[0].classList.remove("borderRed");
-    takeQuery.inputsForm[1].classList.remove("borderRed");
-}
-
-
 const animationScreen = () => {
     takeQuery.screenError.classList.remove("hide");
-        takeQuery.screenError.classList.add("animation-error")
-
-        setTimeout(() => {
-            takeQuery.screenError.classList.remove("animation-error");
-            takeQuery.screenError.classList.add("hide")
-        }, 4000)
-
+    takeQuery.screenError.classList.add("animation-error")
+    
+    setTimeout(() => {
+        takeQuery.screenError.classList.remove("animation-error");
+        takeQuery.screenError.classList.add("hide")
+    }, 4000)
+    
 }
 
 const resetInput = () => {
@@ -63,6 +56,7 @@ const resetInput = () => {
 }
 
 const checkIfInputsFormIsNumber = () => {
+    const takeMessages = messagesForScreenError();
 
     let takeInputWeight = takeQuery.inputsForm[0].value;
     let takeInputHeight = takeQuery.inputsForm[1].value;
@@ -78,13 +72,22 @@ const checkIfInputsFormIsNumber = () => {
         
        return;
     } else {
-        removeBorderRed()
+        takeQuery.inputsForm[0].classList.remove("borderRed");
+        takeQuery.inputsForm[1].classList.remove("borderRed");
     }
 
     if(takeInputHeight.includes(",") && takeInputHeight.includes('m')) {
         takeInputHeight = takeInputHeight.replace(',', '.');
         takeInputHeight.replace('m', "");
     };
+
+    if(takeInputWeight.includes(".") || takeInputWeight.includes(",")) {
+        takeQuery.h2.innerHTML = takeMessages[4];
+
+        animationScreen();
+
+        return;
+    }
 
     takeInputHeight.includes(',') ? takeInputHeight = takeInputHeight.replace(',', '.') : takeInputHeight; 
 
@@ -94,10 +97,11 @@ const checkIfInputsFormIsNumber = () => {
     takeInputWeight.includes("kg") ? takeInputWeight = takeInputWeight.replace("kg", "") : takeInputWeight;
 
 
+
     if(takeInputWeight === "") {
         takeQuery.h2.innerHTML = takeMessages[2];
 
-        animationScreen()
+        animationScreen();
 
         takeQuery.inputsForm[0].classList.add("borderRed");
 
@@ -108,7 +112,7 @@ const checkIfInputsFormIsNumber = () => {
         
         takeQuery.h2.innerHTML = takeMessages[3];
 
-        animationScreen()
+        animationScreen();
 
         takeQuery.inputsForm[1].classList.add("borderRed");
 
@@ -127,7 +131,7 @@ const checkIfInputsFormIsNumber = () => {
         return;
     }
 
-    return [FirstNumberInput, SecondNumberInput]
+    return [FirstNumberInput, SecondNumberInput];
     
 }
 
