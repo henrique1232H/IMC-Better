@@ -23,7 +23,7 @@ const takeQuerySelector = () => {
 
 }
 
-const messages = () => {
+const messagesForScreenError = () => {
     return [
         "Digite somente números",
         "Nenhum dos campos está preenchidos",
@@ -32,7 +32,7 @@ const messages = () => {
     ]
 }
 
-const takeMessages = messages();
+const takeMessages = messagesForScreenError();
 
 
 const takeQuery = takeQuerySelector();
@@ -100,7 +100,7 @@ const checkIfInputsFormIsNumber = () => {
 
 
     if(isNaN(FirstNumberInput) || isNaN(SecondNumberInput)) {
-        animationScreen()
+        animationScreen();
         return;
     }
     
@@ -112,7 +112,7 @@ const closeModal = () => {
     })
 }
 
-const calc = () => {
+const result = () => {
     
     
     takeQuery.form.addEventListener("submit", (e) => {
@@ -127,5 +127,5 @@ const calc = () => {
     })
 }
 
-calc();
+result();
 closeModal()
