@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/css/style.css">
+    <title>IMC</title>
+</head>
+<body>
+
+    <div class="screen-error hide">
+        <h2></h2>
+    </div>
+
+    <main>
+
+        <div class="screen">
+            <h1>Cálculo de IMC</h1>
+
+        <form action="">
+            <div>
+                <label for="weight">
+                    <h2>Peso(kg)</h2>
+                </label>
+                <input type="text" name="weight" id="weight" class="weight">
+            </div>
+
+            <div>
+                <label for="height">
+                    <h2>Altura (m)</h2>
+                </label>
+                <input type="text" name="height" id="height" class="height">
+            </div>
+
+            <div class="finish">
+                <button type="submit">
+                    Calcular IMC 
+                    <span>
+                        <img src="./src/svg/arrow-up.svg" alt="">
+                    </span>
+                </button>
+            </div>
+        </form>
+        </div>
+
+
+        
+        
+    </main>
+    
+    <div class="screen-modal hide">
+
+        <div class="modal">
+
+            <div class="exit">
+                <button>
+                    <img src="./src/svg/close.svg" alt="">
+                </button>
+            </div>
+            
+    
+            <h1>Seu IMC é de 28</h1>
+
+        </div>
+    </div>
+
+    <script src="./src/js/script.js"></script>
+</body>
+</html>
