@@ -28,7 +28,7 @@ const takeQuerySelector = () => {
 const messagesForScreenError = () => {
     return [
         "Digite somente números",
-        "Nenhum dos campos está preenchidos",
+        "Nenhum dos campos estão preenchidos",
         "O peso não está preenchido",
         "Altura não está preenchido"
     ]
@@ -39,11 +39,6 @@ const takeMessages = messagesForScreenError();
 
 const takeQuery = takeQuerySelector();
 
-const addBorderRed = () => {
-    takeQuery.inputsForm[0].classList.add("borderRed");
-    takeQuery.inputsForm[1].classList.add("borderRed");
-
-}
 
 const removeBorderRed = () => {
     takeQuery.inputsForm[0].classList.remove("borderRed");
@@ -54,7 +49,6 @@ const removeBorderRed = () => {
 const animationScreen = () => {
     takeQuery.screenError.classList.remove("hide");
         takeQuery.screenError.classList.add("animation-error")
-        addBorderRed();
 
         setTimeout(() => {
             takeQuery.screenError.classList.remove("animation-error");
@@ -63,57 +57,72 @@ const animationScreen = () => {
 
 }
 
+const resetInput = () => {
+    takeQuery.inputsForm[0].value = "";
+    takeQuery.inputsForm[1].value = "";
+}
+
 const checkIfInputsFormIsNumber = () => {
 
+    let takeInputWeight = takeQuery.inputsForm[0].value;
+    let takeInputHeight = takeQuery.inputsForm[1].value;
 
-    if(takeQuery.inputsForm[0].value === "" && takeQuery.inputsForm[1].value === "") {
+
+    if( takeInputWeight === "" && takeInputHeight === "") {
         takeQuery.h2.innerHTML = takeMessages[1];
+        takeQuery.inputsForm[0].classList.add("borderRed");
+        takeQuery.inputsForm[1].classList.add("borderRed");
 
         animationScreen();
+        
         
        return;
     } else {
         removeBorderRed()
     }
 
+    if(takeInputHeight.includes(",") && takeInputHeight.includes('m')) {
+        takeInputHeight = takeInputHeight.replace(',', '.');
+        takeInputHeight.replace('m', "");
+    };
+
+    takeInputHeight.includes(',') ? takeInputHeight = takeInputHeight.replace(',', '.') : takeInputHeight; 
+
+    takeInputHeight.includes("m") ? takeInputHeight = takeInputHeight.replace('m', "") : takeInputHeight
     
-    if (takeQuery.inputsForm[1].value.includes(',')) {
-        takeQuery.inputsForm[1].value = takeQuery.inputsForm[1].value.replace(',' , '.');
-        console.log(takeQuery.inputsForm[1].value);
 
-    }
-
-    if(takeQuery.inputsForm[0].value.includes("kg")) {
-        takeQuery.inputsForm[0].value = takeQuery.inputsForm[0].value.replace("kg", "");
-        console.log(takeQuery.inputsForm[1].value);
-    }
+    takeInputWeight.includes("kg") ? takeInputWeight = takeInputWeight.replace("kg", "") : takeInputWeight;
 
 
-    if(takeQuery.inputsForm[0].value === "") {
+    if(takeInputWeight === "") {
         takeQuery.h2.innerHTML = takeMessages[2];
 
         animationScreen()
 
-        addBorderRed();
+        takeQuery.inputsForm[0].classList.add("borderRed");
 
         return;
     }
 
-    if(takeQuery.inputsForm[1].value === "") {
+    if(takeInputHeight === "") {
         
         takeQuery.h2.innerHTML = takeMessages[3];
 
         animationScreen()
 
+        takeQuery.inputsForm[1].classList.add("borderRed");
+
         return;
     }
 
 
-    const FirstNumberInput = Number(takeQuery.inputsForm[0].value);
-    const SecondNumberInput = Number(takeQuery.inputsForm[1].value);
+    const FirstNumberInput = Number(takeInputWeight);
+    const SecondNumberInput = Number(takeInputHeight);
 
 
     if(isNaN(FirstNumberInput) || isNaN(SecondNumberInput)) {
+
+        takeQuery.h2.innerHTML = takeMessages[0];
         animationScreen();
         return;
     }
@@ -125,6 +134,8 @@ const checkIfInputsFormIsNumber = () => {
 const closeModal = () => {
     takeQuery.buttonExit.addEventListener("click", () => {
         takeQuery.modal.classList.add("hide");
+
+        resetInput();
     })
 }
 
@@ -138,7 +149,7 @@ const result = () => {
 
         const resultCalc = Math.round(takeNumber[0] / (takeNumber[1] * takeNumber[1]));
 
-        takeQuery.h1.innerHTML = resultCalc
+        takeQuery.h1.innerHTML = `Seu IMC é de ${resultCalc}`;
 
 
 

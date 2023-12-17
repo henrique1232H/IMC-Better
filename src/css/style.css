@@ -115,6 +115,9 @@ input {
     justify-content: center;
     background: #F03E3E;
     position: absolute;
+}
+
+.screen-error h2 {
     color: #FFF;
     font-weight: bold;
     font-size: 1.6rem;
