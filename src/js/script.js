@@ -7,7 +7,8 @@ const takeQuerySelector = () => {
     const secondInput = form.querySelector(".height");
     const buttonForm = form.querySelector("button");
 
-    const h2 = screenError.querySelector("h2")
+    const h2 = screenError.querySelector("h2");
+    const h1 = modal.querySelector("h1")
 
     const buttonExit = modal.querySelector("button")
 
@@ -18,7 +19,8 @@ const takeQuerySelector = () => {
         form,
         inputsForm: [firstInput, secondInput, buttonForm],
         buttonExit,
-        h2
+        h2,
+        h1
     }
 
 }
@@ -64,7 +66,6 @@ const animationScreen = () => {
 const checkIfInputsFormIsNumber = () => {
 
 
-
     if(takeQuery.inputsForm[0].value === "" && takeQuery.inputsForm[1].value === "") {
         takeQuery.h2.innerHTML = takeMessages[1];
 
@@ -73,6 +74,18 @@ const checkIfInputsFormIsNumber = () => {
        return;
     } else {
         removeBorderRed()
+    }
+
+    
+    if (takeQuery.inputsForm[1].value.includes(',')) {
+        takeQuery.inputsForm[1].value = takeQuery.inputsForm[1].value.replace(',' , '.');
+        console.log(takeQuery.inputsForm[1].value);
+
+    }
+
+    if(takeQuery.inputsForm[0].value.includes("kg")) {
+        takeQuery.inputsForm[0].value = takeQuery.inputsForm[0].value.replace("kg", "");
+        console.log(takeQuery.inputsForm[1].value);
     }
 
 
@@ -95,6 +108,7 @@ const checkIfInputsFormIsNumber = () => {
         return;
     }
 
+
     const FirstNumberInput = Number(takeQuery.inputsForm[0].value);
     const SecondNumberInput = Number(takeQuery.inputsForm[1].value);
 
@@ -103,6 +117,8 @@ const checkIfInputsFormIsNumber = () => {
         animationScreen();
         return;
     }
+
+    return [FirstNumberInput, SecondNumberInput]
     
 }
 
@@ -117,7 +133,14 @@ const result = () => {
     
     takeQuery.form.addEventListener("submit", (e) => {
         e.preventDefault()
-        checkIfInputsFormIsNumber();
+        const takeNumber = checkIfInputsFormIsNumber();
+        console.log(takeNumber[0], takeNumber[1])
+
+        const resultCalc = Math.round(takeNumber[0] / (takeNumber[1] * takeNumber[1]));
+
+        takeQuery.h1.innerHTML = resultCalc
+
+
 
         takeQuery.modal.classList.remove("hide");
 
